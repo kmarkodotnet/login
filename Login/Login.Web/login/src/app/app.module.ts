@@ -1,18 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LessonsComponent } from './lessons/lessons.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import {RouterModule} from "@angular/router";
+import {routesConfig} from "./routes.config";
+import {LessonsService} from "./services/lessons.service";
+import {ReactiveFormsModule} from "@angular/forms";
+
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LessonsComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+      HttpClientModule,
+      RouterModule.forRoot(routesConfig),
+      ReactiveFormsModule
   ],
-  providers: [],
+  providers: [LessonsService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}
