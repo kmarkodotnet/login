@@ -7,7 +7,6 @@ C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Login.Api.runtimeconfig.js
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Login.Api.runtimeconfig.dev.json
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Login.Api.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Login.Api.pdb
-C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.csprojAssemblyReference.cache
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\staticwebassets\Login.Api.StaticWebAssets.Manifest.cache
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\staticwebassets\Login.Api.StaticWebAssets.xml
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.MvcApplicationPartsAssemblyInfo.cache
