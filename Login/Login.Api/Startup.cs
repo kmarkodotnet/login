@@ -32,7 +32,8 @@ namespace Login.Api
             app.UseRouting();
             app.UseCors(builder =>
                 {
-                    builder.WithOrigins("https://localhost:4200", "http://localhost:4200");
+                    //builder.WithOrigins("https://localhost:4200/", "http://localhost:4200/", "http://localhost:4200/signup");
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 }
             );
 
