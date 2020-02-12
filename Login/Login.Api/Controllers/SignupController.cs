@@ -28,7 +28,7 @@ namespace Login.Api.Controllers
             var sessionId = CreateSessionId();
             SessionStore.CreateSession(sessionId, um);
 
-            Response.Cookies.Append("SESSIONID",sessionId, new CookieOptions() {HttpOnly= true, IsEssential = true, Secure = false});
+            Response.Cookies.Append("SESSIONID",sessionId, new CookieOptions() {HttpOnly= true, IsEssential = true, Secure = true});
             return um;
         }
 

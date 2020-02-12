@@ -35,7 +35,7 @@ namespace Login.DataAccess
 
         public void Init(IEnumerable<T> items)
         {
-            if (Items == null)
+            if (Items == null || !Items.Any())
             {
                 Items = items.ToList();
             }            
