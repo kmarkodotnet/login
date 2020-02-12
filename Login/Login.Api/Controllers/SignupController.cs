@@ -7,6 +7,7 @@ using Login.Logic;
 using Login.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 
 namespace Login.Api.Controllers
 {
@@ -18,9 +19,23 @@ namespace Login.Api.Controllers
         [HttpPost]
         public UserModel CreateUser([FromBody] UserModel userModel)
         {
+            var c = Request.Cookies["SESSIONID"];
+
             var us = new UserService();
             var u = us.CreateUser(userModel.Email, userModel.Password);
-            return new UserModel { Email = u.Email};
+            var um = new UserModel { Email = u.Email };
+
+            var sessionId = CreateSessionId();
+            SessionStore.CreateSession(sessionId, um);
+
+            Response.Cookies.Append("SESSIONID",sessionId, new CookieOptions() {HttpOnly= true, IsEssential = true, Secure = false});
+            return um;
+        }
+
+
+        private string CreateSessionId()
+        {
+            return Guid.NewGuid().ToString();
         }
     }
 }

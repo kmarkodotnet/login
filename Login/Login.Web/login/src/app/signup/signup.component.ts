@@ -34,7 +34,10 @@ export class SignupComponent implements OnInit {
         if(val.email && val.password && val.password === val.confirm){
             this.authService.signup(val.email, val.password)
                 .subscribe(
-                    u => console.log("User created successfully " + (u as User).email),
+                    u => 
+                    {
+                        console.log("User created successfully " + (u as User).email);
+                    },
                     console.error
                 )
         }

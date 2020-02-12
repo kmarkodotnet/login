@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Login.DataAccess;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,6 +21,12 @@ namespace Login.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,14 +40,21 @@ namespace Login.Api
             app.UseRouting();
             app.UseCors(builder =>
                 {
-                    //builder.WithOrigins("https://localhost:4200/", "http://localhost:4200/", "http://localhost:4200/signup");
-                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    builder
+                    .WithOrigins("https://localhost:4200", "http://localhost:4200", "http://localhost:4200/signup")
+                    //.AllowAnyOrigin()
+                    .AllowAnyHeader().AllowAnyMethod()
+                    .AllowCredentials()
+                    ;
                 }
             );
 
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
             });
+
+            app.UseAuthentication();
 
             DataContext.Init();
         }

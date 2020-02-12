@@ -26,10 +26,21 @@ export class AuthService {
 
   constructor(private http:HttpClient) { }
 
+
+  sessionId = "";
+  sessionIdName = "SESSIONID";
+
   signup(email:string, password:string):Observable<User>{
     const user = new User();
     user.email = email;
-    return this.http.post<User>(Config.API_BASE_URL + "signup", {email, password})
-    .pipe(shareReplay(),tap(user =>this.subject.next(user)));
+
+    return this.http.post<User>(Config.API_BASE_URL + "signup", {email, password},
+    {withCredentials: true}
+    )
+    .pipe(shareReplay(),tap(user =>
+      {
+        this.subject.next(user);
+      }
+        ));
   }
 }

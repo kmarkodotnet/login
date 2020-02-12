@@ -12,7 +12,6 @@ import {LessonsService} from "./services/lessons.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import { AuthService } from './services/auth.service';
 
-
 //import "rxjs/add/operator/switchMap";
 //import "rxjs/add/operator/map";
 
