@@ -16,16 +16,24 @@ namespace Login.Api.Controllers
         [HttpGet]
         public string Get()
         {
-            var dc = new DataContext();
-            var lessons = dc.Lessons.List();
-            var options = new JsonSerializerOptions
+            var sessionId = Request.Cookies["SESSIONID"];
+
+            if (string.IsNullOrWhiteSpace(sessionId) || !SessionStore.IsValid(sessionId))
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                WriteIndented = true
-            };
-            return JsonSerializer.Serialize(lessons, options);
-
-
+                Response.StatusCode = 203;
+                return null;
+            }
+            else
+            {
+                var dc = new DataContext();
+                var lessons = dc.Lessons.List();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    WriteIndented = true
+                };
+                return JsonSerializer.Serialize(lessons, options);
+            }
         }
     }
 }

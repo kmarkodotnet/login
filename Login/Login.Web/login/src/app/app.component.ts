@@ -20,8 +20,10 @@ export class AppComponent {
     this.isLoggedOut$ = this.auth.isLoggedOut$;
   }
 
-
-
+  logout()
+  {
+    this.auth.logOut().subscribe();
+  }
 
 
 }

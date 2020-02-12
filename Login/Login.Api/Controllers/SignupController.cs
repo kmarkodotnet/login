@@ -23,7 +23,7 @@ namespace Login.Api.Controllers
 
             var us = new UserService();
             var u = us.CreateUser(userModel.Email, userModel.Password);
-            var um = new UserModel { Email = u.Email };
+            var um = new UserModel { Email = u.Email, Id = u.Id };
 
             var sessionId = CreateSessionId();
             SessionStore.CreateSession(sessionId, um);

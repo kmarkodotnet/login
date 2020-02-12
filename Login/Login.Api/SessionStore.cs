@@ -14,5 +14,23 @@ namespace Login.Api
         {
             sessions.Add(sessionId, new Session(sessionId, user));
         }
+
+        public static UserModel FindUserBySessionId(string sessionId)
+        {
+            return IsValid(sessionId) ? sessions[sessionId].User : null;
+        }
+
+        public static bool IsValid(string sessionId)
+        {
+            return sessions.ContainsKey(sessionId) && sessions[sessionId].IsValid();
+        }
+
+        public static void DestroySession(string sessionId)
+        {
+            if (sessions.ContainsKey(sessionId))
+            {
+                sessions.Remove(sessionId);
+            }
+        }
     }
 }
