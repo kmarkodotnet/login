@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Login.Api.Models
+namespace Login.Api.Model
 {
-    public class User
+    public class UserModel
     {
-        public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
     }

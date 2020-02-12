@@ -14,4 +14,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Login.DataAccess\Login.DataAccess.csproj" />
+    <ProjectReference Include="..\Login.Logic\Login.Logic.csproj" />
+  </ItemGroup>
+
 </Project>

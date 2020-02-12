@@ -1,24 +1,27 @@
-﻿using System;
+﻿using Login.Model;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Login.Api.Models
+namespace Login.DataAccess
 {
-    public class Lesson
+    public class DataContext
     {
-        public int Id { get; set; }
-        public string Description { get; set; }
-        public string LongDescription { get; set; }
-        public string Tags { get; set; }
-        public string Duration { get; set; }
-        public string Url { get; set; }
-        public string VideoUrl { get; set; }
-    }
+        public DataContext()
+        {
+            Lessons = new LessonRepository();
+            Users = new UserRepository();
+        }
 
-    public class Lessons
-    {
-        public static IEnumerable<Lesson> GetLessons()
+        public static void Init()
+        {
+            new LessonRepository().Init(GetLessons());
+        }
+
+        public LessonRepository Lessons { get; set; }
+        public UserRepository Users { get; set; }
+
+        private static IEnumerable<Lesson> GetLessons()
         {
             var l1 = new Lesson();
             l1.Id = 1;
