@@ -17,9 +17,14 @@ namespace Login.Api.Controllers
         {
             var sessionId = Request.Cookies["SESSIONID"];
             
-            if (!string.IsNullOrWhiteSpace(sessionId) && SessionStore.FindUserBySessionId(sessionId) != null)
+            if (!string.IsNullOrWhiteSpace(sessionId) 
+                //&& SessionStore.FindUserBySessionId(sessionId) != null
+                )
             {
-                return SessionStore.FindUserBySessionId(sessionId);
+                return 
+                    //SessionStore.FindUserBySessionId(sessionId)
+                    null
+                    ;
             }
             else
             {

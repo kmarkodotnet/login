@@ -10,16 +10,12 @@ import { Observable } from 'rxjs';
 export class LessonsService {
 
     constructor(private http: HttpClient) {
-
-
     }
-
 
     loadAllLessons():Observable<Lesson[]> {
         return this.http.get<Lesson[]>(Config.API_BASE_URL + 'lessons',
         {withCredentials: true});
     }
-
 
     findLessonById(id:number) {
         return this.http.get<Lesson>('/api/lessons/' + id);

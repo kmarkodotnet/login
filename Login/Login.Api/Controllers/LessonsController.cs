@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using Login.DataAccess;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Login.Api.Controllers
 {
@@ -13,12 +14,20 @@ namespace Login.Api.Controllers
     [ApiController]
     public class LessonsController : ControllerBase
     {
+
+        //[Authorize]
         [HttpGet]
         public string Get()
         {
             var sessionId = Request.Cookies["SESSIONID"];
 
-            if (string.IsNullOrWhiteSpace(sessionId) || !SessionStore.IsValid(sessionId))
+
+            //itt elérhető a userId ami a jwt tokenből jön
+            var userId = this.User.Identity.Name;
+
+            if (string.IsNullOrWhiteSpace(sessionId) 
+                //|| !SessionStore.IsValid(sessionId)
+                )
             {
                 Response.StatusCode = 203;
                 return null;

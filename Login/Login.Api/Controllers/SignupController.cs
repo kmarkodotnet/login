@@ -25,17 +25,17 @@ namespace Login.Api.Controllers
             var u = us.CreateUser(userModel.Email, userModel.Password);
             var um = new UserModel { Email = u.Email, Id = u.Id };
 
-            var sessionId = CreateSessionId();
-            SessionStore.CreateSession(sessionId, um);
+            string sessionId = CreateSessionToken(u.Id);
 
             Response.Cookies.Append("SESSIONID",sessionId, new CookieOptions() {HttpOnly= true, IsEssential = true, Secure = true});
             return um;
         }
 
-
-        private string CreateSessionId()
+        private string CreateSessionToken(int uId)
         {
-            return Guid.NewGuid().ToString();
+            var token =  JwtManager.GetToken(uId);
+            return token;
         }
+
     }
 }

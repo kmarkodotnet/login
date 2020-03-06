@@ -17,7 +17,7 @@ namespace Login.Api.Controllers
         {
             var sessionId = Request.Cookies["SESSIONID"];
 
-            SessionStore.DestroySession(sessionId);
+            //SessionStore.DestroySession(sessionId);
 
             Response.Cookies.Delete("SESSIONID");
         }
