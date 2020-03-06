@@ -47,6 +47,18 @@ export class AuthService {
       tap(user => this.subject.next(user)),);
   }
 
+  login(email:string, password:string):Observable<User>{
+    const user = new User();
+    user.email = email;
+ 
+    return this.http.post<User>(Config.API_BASE_URL + "login", {email, password},
+    {withCredentials: true}
+    )
+    .pipe(
+      shareReplay(),
+      tap(user => this.subject.next(user)),);
+  }
+
   logOut():Observable<any> {
     return this.http.post(Config.API_BASE_URL + "logout",null,
     {withCredentials: true}).pipe(

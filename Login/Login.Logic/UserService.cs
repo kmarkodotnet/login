@@ -2,6 +2,7 @@
 using Login.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Login.Logic
@@ -21,10 +22,17 @@ namespace Login.Logic
             return _dc.Users.Add(new Model.User() {Email = email, Password = psw, Salt = salt });
         }
 
+        public User GetUser(string email)
+        {
+            return _dc.Users.List().FirstOrDefault(u => u.Email == email);
+        }
+
         public bool ValidatePassword(string email, string password)
         {
             var user = _dc.Users.GetUserByEmail(email);
             return Password.VerifyHash(password, user.Salt, user.Password);
         }
+
+
     }
 }
