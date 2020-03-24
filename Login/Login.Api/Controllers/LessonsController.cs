@@ -14,24 +14,19 @@ namespace Login.Api.Controllers
     [ApiController]
     public class LessonsController : ControllerBase
     {
-
         //[Authorize]
         [HttpGet]
         public string Get()
         {
             var sessionId = Request.Cookies["SESSIONID"];
 
-
             //itt elérhető a userId ami a jwt tokenből jön
             var userId = this.User.Identity.Name;
 
-            if (string.IsNullOrWhiteSpace(sessionId) 
-                //|| !SessionStore.IsValid(sessionId)
-                )
+            if (string.IsNullOrWhiteSpace(sessionId))
             {
                 Response.StatusCode = 203;
-                return null;
-            }
+                return null; }
             else
             {
                 var dc = new DataContext();

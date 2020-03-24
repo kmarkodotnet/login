@@ -19,8 +19,6 @@ namespace Login.Api.Controllers
         [HttpPost]
         public UserModel CreateUser([FromBody] UserModel userModel)
         {
-            var c = Request.Cookies["SESSIONID"];
-
             var us = new UserService();
             var u = us.CreateUser(userModel.Email, userModel.Password);
             var um = new UserModel { Email = u.Email, Id = u.Id };

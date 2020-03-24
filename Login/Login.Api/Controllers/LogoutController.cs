@@ -15,10 +15,6 @@ namespace Login.Api.Controllers
         [HttpPost]
         public void Logout()
         {
-            var sessionId = Request.Cookies["SESSIONID"];
-
-            //SessionStore.DestroySession(sessionId);
-
             Response.Cookies.Delete("SESSIONID");
         }
     }

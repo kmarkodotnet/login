@@ -28,7 +28,7 @@ export class AuthService {
   isLoggedOut$: Observable<boolean> = this.isLoggedIn$.pipe(map(isLoggedIn => !isLoggedIn));
 
   constructor(private http:HttpClient) {
-    this.http.get<User>(Config.API_BASE_URL + "user").subscribe(user => this.subject.next(user ? user : ANONYMUS_USER));
+    this.http.get<User>(Config.API_BASE_URL + "user",{withCredentials: true}).subscribe(user => this.subject.next(user ? user : ANONYMUS_USER));
    }
 
 

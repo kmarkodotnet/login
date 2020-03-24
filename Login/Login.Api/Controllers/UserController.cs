@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Login.Api.Model;
+using Login.Logic;
+using Login.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,19 +20,28 @@ namespace Login.Api.Controllers
             var sessionId = Request.Cookies["SESSIONID"];
             
             if (!string.IsNullOrWhiteSpace(sessionId) 
-                //&& SessionStore.FindUserBySessionId(sessionId) != null
                 )
             {
-                return 
-                    //SessionStore.FindUserBySessionId(sessionId)
-                    null
-                    ;
+                var userId = JwtManager.DecodeUserIdFromToken(sessionId);
+                var uid = int.Parse(userId);
+                var us = new UserService();
+                var user = us.GetUser(uid);
+                return ToDto(user);
             }
             else
             {
                 Response.StatusCode = 203;
                 return null;
             }
+        }
+
+        private UserModel ToDto(User user)
+        {
+            return new UserModel
+            {
+                Email = user.Email,
+                Id = user.Id
+            };
         }
     }
 }

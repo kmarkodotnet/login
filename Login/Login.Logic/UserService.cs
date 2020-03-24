@@ -27,6 +27,11 @@ namespace Login.Logic
             return _dc.Users.List().FirstOrDefault(u => u.Email == email);
         }
 
+        public User GetUser(int id)
+        {
+            return _dc.Users.List().FirstOrDefault(u => u.Id == id);
+        }
+
         public bool ValidatePassword(string email, string password)
         {
             var user = _dc.Users.GetUserByEmail(email);

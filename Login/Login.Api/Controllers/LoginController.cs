@@ -19,8 +19,6 @@ namespace Login.Api.Controllers
         [HttpPost]
         public UserModel Login([FromBody] UserModel userModel)
         {
-            var c = Request.Cookies["SESSIONID"];
-
             var us = new UserService();
 
             var user = us.GetUser(userModel.Email);
@@ -37,7 +35,6 @@ namespace Login.Api.Controllers
                     var um = new UserModel { Email = user.Email, Id = user.Id };
 
                     var sessionId = CreateSessionId(user.Id);
-                    //SessionStore.CreateSession(sessionId, um);
 
                     Response.Cookies.Append("SESSIONID", sessionId, new CookieOptions() { HttpOnly = true, IsEssential = true, Secure = true });
                     return um;

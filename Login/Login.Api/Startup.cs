@@ -73,7 +73,6 @@ namespace Login.Api
                     context.User = new ClaimsPrincipal(new UserPrincipal(userId));
                 }
                 
-                //context.Request["userId"] = 1;
                 // Call the next delegate/middleware in the pipeline
                 await next();
             });
