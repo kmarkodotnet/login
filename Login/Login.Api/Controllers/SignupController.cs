@@ -25,9 +25,9 @@ namespace Login.Api.Controllers
             var u = us.CreateUser(userModel.Email, userModel.Password);
             var um = new UserModel { Email = u.Email, Id = u.Id };
 
-            string sessionId = CreateSessionToken(u.Id);
+            string sessionToken = CreateSessionToken(u.Id);
 
-            Response.Cookies.Append("SESSIONID",sessionId, new CookieOptions() {HttpOnly= true, IsEssential = true, Secure = true});
+            Response.Cookies.Append("SESSIONID",sessionToken, new CookieOptions() {HttpOnly= true, IsEssential = true, Secure = true});
             return um;
         }
 

@@ -36,7 +36,7 @@ namespace Login.Api.Controllers
                 {
                     var um = new UserModel { Email = user.Email, Id = user.Id };
 
-                    var sessionId = CreateSessionId();
+                    var sessionId = CreateSessionId(user.Id);
                     //SessionStore.CreateSession(sessionId, um);
 
                     Response.Cookies.Append("SESSIONID", sessionId, new CookieOptions() { HttpOnly = true, IsEssential = true, Secure = true });
@@ -51,9 +51,10 @@ namespace Login.Api.Controllers
         }
 
 
-        private string CreateSessionId()
+        private string CreateSessionId(int uId)
         {
-            return "1";// Guid.NewGuid().ToString();
+            var token = JwtManager.GetToken(uId);
+            return token;
         }
     }
 }
