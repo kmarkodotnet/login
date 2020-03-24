@@ -61,6 +61,11 @@ namespace Login.Api
             //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-3.1
             app.UseRetrieveUserIdFromRequest();
 
+            app.UseWhen(c => 
+                    c.Request.Path.StartsWithSegments("/api/lessons"), appbuilder => 
+                appbuilder.UseCheckIfAuthenticatedRequest()
+            );
+
             //some better solutions:
             //https://www.c-sharpcorner.com/article/asp-net-web-api-2-creating-and-validating-jwt-json-web-token/
             //https://www.c-sharpcorner.com/article/jwt-json-web-token-authentication-in-asp-net-core/
@@ -76,6 +81,8 @@ namespace Login.Api
                     ;
                 }
             );
+
+            
 
             app.UseEndpoints(endpoints =>
             {

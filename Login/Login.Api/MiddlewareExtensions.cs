@@ -13,5 +13,11 @@ namespace Login.Api
         {
             return builder.UseMiddleware<RetrieveUserIdFromRequestMiddleware>();
         }
+        public static IApplicationBuilder UseCheckIfAuthenticatedRequest(
+            this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<CheckIfAuthenticatedMiddleware>();
+        }
+        
     }
 }
