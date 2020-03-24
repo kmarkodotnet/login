@@ -57,25 +57,13 @@ namespace Login.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-3.1
+            app.UseRetrieveUserIdFromRequest();
 
             //some better solutions:
             //https://www.c-sharpcorner.com/article/asp-net-web-api-2-creating-and-validating-jwt-json-web-token/
             //https://www.c-sharpcorner.com/article/jwt-json-web-token-authentication-in-asp-net-core/
-
-            //must make it correct:
-            //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-3.1
-            app.Use(async (context, next) =>
-            {
-                var sessionToken = context.Request.Cookies["sessionId"];
-                if (!string.IsNullOrEmpty(sessionToken))
-                {
-                    var userId = JwtManager.DecodeUserIdFromToken(sessionToken);
-                    context.User = new ClaimsPrincipal(new UserPrincipal(userId));
-                }
-                
-                // Call the next delegate/middleware in the pipeline
-                await next();
-            });
 
             app.UseRouting();
             app.UseCors(builder =>
