@@ -21,5 +21,4 @@ export class LessonsService {
         return this.http.get<Lesson>('/api/lessons/' + id);
     }
 
-
 }

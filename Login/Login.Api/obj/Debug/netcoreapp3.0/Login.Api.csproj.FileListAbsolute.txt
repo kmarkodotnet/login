@@ -119,7 +119,7 @@ C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Js
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Logging.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\System.IdentityModel.Tokens.Jwt.dll
-C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.MvcApplicationPartsAssemblyInfo.cache

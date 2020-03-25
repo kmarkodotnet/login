@@ -40,8 +40,7 @@ export class AuthService {
     user.email = email;
  
     return this.http.post<User>(Config.API_BASE_URL + "signup", {email, password},
-    {withCredentials: true}
-    )
+    {withCredentials: true})
     .pipe(
       shareReplay(),
       tap(user => this.subject.next(user)),);
@@ -52,8 +51,7 @@ export class AuthService {
     user.email = email;
  
     return this.http.post<User>(Config.API_BASE_URL + "login", {email, password},
-    {withCredentials: true}
-    )
+    {withCredentials: true})
     .pipe(
       shareReplay(),
       tap(user => this.subject.next(user)),);

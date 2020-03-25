@@ -12,7 +12,8 @@ namespace Login.Logic
     {
         public static string Issuer = "http://mysite.com";
         public static string Key = "my_secret_key_12345";
-        public static string GetToken(int userId)
+
+        public static string CreateSessionToken(int userId)
         {
             string key = Key; //Secret key which will be used later during validation    
             var issuer = Issuer;  //normally this will be your site URL    
@@ -44,5 +45,6 @@ namespace Login.Logic
             var jti = tokenS.Claims.First(claim => claim.Type == "userid").Value;
             return jti;
         }
+
     }
 }

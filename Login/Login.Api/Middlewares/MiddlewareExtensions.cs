@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 
-namespace Login.Api
+namespace Login.Api.Middlewares
 {
     public static class MiddlewareExtensions
     {
@@ -13,11 +14,18 @@ namespace Login.Api
         {
             return builder.UseMiddleware<RetrieveUserIdFromRequestMiddleware>();
         }
+
         public static IApplicationBuilder UseCheckIfAuthenticatedRequest(
             this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<CheckIfAuthenticatedMiddleware>();
         }
-        
+
+
+        public static IApplicationBuilder UseAntiforgeryRequest(
+            this IApplicationBuilder builder, IAntiforgery antiforgery)
+        {
+            return builder.UseMiddleware<AntiforgeryMiddleware>(antiforgery);
+        }
     }
 }

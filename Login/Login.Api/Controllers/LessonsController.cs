@@ -12,7 +12,7 @@ namespace Login.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LessonsController : ControllerBase
+    public class LessonsController : LoginBaseController
     {
         //[Authorize]
         [HttpGet]

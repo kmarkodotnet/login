@@ -13,7 +13,7 @@ namespace Login.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SignupController : ControllerBase
+    public class SignupController : LoginBaseController
     {
 
         [HttpPost]
@@ -26,12 +26,13 @@ namespace Login.Api.Controllers
             string sessionToken = CreateSessionToken(u.Id);
 
             Response.Cookies.Append("SESSIONID",sessionToken, new CookieOptions() {HttpOnly= true, IsEssential = true, Secure = true});
+            
             return um;
         }
 
         private string CreateSessionToken(int uId)
         {
-            var token =  JwtManager.GetToken(uId);
+            var token =  JwtManager.CreateSessionToken(uId);
             return token;
         }
 

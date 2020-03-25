@@ -4,14 +4,17 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Login.Api.Middlewares;
 using Login.Api.Model;
 using Login.DataAccess;
 using Login.Logic;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,21 +29,6 @@ namespace Login.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true,
-            //            ValidateLifetime = true,
-            //            ValidateIssuerSigningKey = true,
-            //            ValidIssuer = JwtManager.Issuer,
-            //            //ValidAudience = Configuration["Jwt:Issuer"],
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtManager.Key))
-            //        };
-            //    });
-
             services.AddControllers();
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -48,10 +36,15 @@ namespace Login.Api
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "XSRF-TOKEN";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiforgery)
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +58,9 @@ namespace Login.Api
                     c.Request.Path.StartsWithSegments("/api/lessons"), appbuilder => 
                 appbuilder.UseCheckIfAuthenticatedRequest()
             );
+
+            app.UseAntiforgeryRequest(antiforgery);
+
 
             //some better solutions:
             //https://www.c-sharpcorner.com/article/asp-net-web-api-2-creating-and-validating-jwt-json-web-token/
@@ -81,8 +77,6 @@ namespace Login.Api
                     ;
                 }
             );
-
-            
 
             app.UseEndpoints(endpoints =>
             {

@@ -13,7 +13,7 @@ namespace Login.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class LoginController : LoginBaseController
     {
 
         [HttpPost]
@@ -43,14 +43,12 @@ namespace Login.Api.Controllers
                 {
                     throw new NotImplementedException();
                 }
-                
             }
         }
 
-
         private string CreateSessionId(int uId)
         {
-            var token = JwtManager.GetToken(uId);
+            var token = JwtManager.CreateSessionToken(uId);
             return token;
         }
     }

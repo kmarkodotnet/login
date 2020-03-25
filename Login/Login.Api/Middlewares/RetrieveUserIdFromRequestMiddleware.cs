@@ -8,7 +8,7 @@ using Login.Api.Model;
 using Login.Logic;
 using Microsoft.AspNetCore.Http;
 
-namespace Login.Api
+namespace Login.Api.Middlewares
 {
     public class RetrieveUserIdFromRequestMiddleware
     {

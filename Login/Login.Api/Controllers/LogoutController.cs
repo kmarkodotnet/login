@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Login.Api.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class LogoutController : ControllerBase
+    public class LogoutController : LoginBaseController
     {
-
         [HttpPost]
         public void Logout()
         {
