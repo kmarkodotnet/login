@@ -37,29 +37,31 @@ namespace Login.Api
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddAntiforgery(options =>
-            {
-                options.HeaderName = "XSRF-TOKEN";
-            });
+            //services.AddAntiforgery(options =>
+            //{
+            //    options.HeaderName = "XSRF-TOKEN";
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiforgery)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env
+            //, IAntiforgery antiforgery
+            )
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             
-            //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-3.1
-            app.UseRetrieveUserIdFromRequest();
+            ////https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-3.1
+            //app.UseRetrieveUserIdFromRequest();
 
-            app.UseWhen(c => 
-                    c.Request.Path.StartsWithSegments("/api/lessons"), appbuilder => 
-                appbuilder.UseCheckIfAuthenticatedRequest()
-            );
+            //app.UseWhen(c => 
+            //        c.Request.Path.StartsWithSegments("/api/lessons"), appbuilder => 
+            //    appbuilder.UseCheckIfAuthenticatedRequest()
+            //);
 
-            app.UseAntiforgeryRequest(antiforgery);
+            //app.UseAntiforgeryRequest(antiforgery);
 
 
             //some better solutions:

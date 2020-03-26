@@ -13,13 +13,13 @@
         <li>
             <a routerLink="/lessons2">Lessons2</a>
         </li>
-        <li *ngIf="isLoggedOut$ | async">
-            <a routerLink="/signup">Sign Up</a>
+        <li *ngIf="isLoggedOut()" (click)="signUp()">
+            <a>Sign Up</a>
         </li>
-        <li *ngIf="isLoggedOut$ | async">
-            <a routerLink="/login">Login</a>
+        <li *ngIf="isLoggedOut()" (click)="login()">
+            <a>Login</a>
         </li>
-        <li *ngIf="isLoggedIn$ | async" (click)="logout()">
+        <li *ngIf="isLoggedIn()" (click)="logout()">
             <a>Logout</a>
         </li>
     </ul>

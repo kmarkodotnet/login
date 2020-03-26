@@ -16,14 +16,27 @@ export class AppComponent {
   constructor(private auth:AuthService) { }
 
   ngOnInit(){
-    this.isLoggedIn$ = this.auth.isLoggedIn$;
-    this.isLoggedOut$ = this.auth.isLoggedOut$;
+    //this.isLoggedIn$ = this.auth.isLoggedIn$;
+    //this.isLoggedOut$ = this.auth.isLoggedOut$;
+    this.auth.retrieveAuthInfoFromUrl();
   }
 
-  logout()
-  {
-    this.auth.logOut().subscribe();
+  signUp() {
+    this.auth.signUp();
   }
 
+  login() {
+    this.auth.login();
+  }
 
+  logout() {
+      this.auth.logOut();
+  }
+
+  isLoggedIn():boolean{
+    return this.auth.isLoggedIn();
+  }
+  isLoggedOut():boolean{
+    return this.auth.isLoggedOut();
+  }
 }
