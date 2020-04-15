@@ -30,10 +30,7 @@ const AUTH_CONFIG ={
 })
 export class AuthService {
   
-  constructor(private http: HttpClient, private router: Router) {
-
-  }
-
+  constructor(private http: HttpClient, private router: Router) {  }
 
   retrieveAuthInfoFromUrl() {
     this.auth0.parseHash((err, authResult) =>{
@@ -45,18 +42,10 @@ export class AuthService {
       }else if(authResult && authResult.idToken){
         window.location.hash = "";
         this.setSession(authResult);
-
-        // this.auth0.client.userInfo(authResult.accessToken,(err2, userProfile)=>{
-        //   if(err2){
-        //     console.log(err2);
-        //     return;
-        //   }
-    
-        //   console.log(userProfile);
-        // });
       }      
     });
   }
+
   setSession(authResult: any) {
     const expiresAt = m().add(authResult.expiresIn,'second');
     localStorage.setItem("id_token",authResult.idToken);

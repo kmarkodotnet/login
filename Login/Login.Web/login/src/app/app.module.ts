@@ -12,11 +12,6 @@ import { AuthService } from './services/auth.service';
 import { Lessons2Component } from './lessons2/lessons2.component';
 import { TokenInterceptor } from './services/token.interceptor';
 
-//import { TokenInterceptor } from './services/token.interceptor';
-
-//import "rxjs/add/operator/switchMap";
-//import "rxjs/add/operator/map";
-
 @NgModule({
   declarations: [
     AppComponent,

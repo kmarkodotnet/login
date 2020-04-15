@@ -11,14 +11,16 @@ import { AuthService } from '../services/auth.service';
 })
 export class LessonsComponent implements OnInit {
 
-
   lessons$: Observable<Lesson[]>;
-  isLoggedIn$: Observable<boolean>;
+  isLoggedIn: boolean;
 
-  constructor(private lessonsService:LessonsService, private authService: AuthService) { }
+  constructor(private lessonsService:LessonsService, private authService: AuthService) {
+    
+   }
 
   ngOnInit() {
     this.lessons$ = this.lessonsService.loadAllLessons();
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
 }

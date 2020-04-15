@@ -16,8 +16,6 @@ export class AppComponent {
   constructor(private auth:AuthService) { }
 
   ngOnInit(){
-    //this.isLoggedIn$ = this.auth.isLoggedIn$;
-    //this.isLoggedOut$ = this.auth.isLoggedOut$;
     this.auth.retrieveAuthInfoFromUrl();
   }
 
