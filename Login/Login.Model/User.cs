@@ -8,12 +8,12 @@ namespace Login.Model
     public class User: Entity
     {
         public string Email { get; set; }
-        public byte[] Password { get; set; }
-        public byte[] Salt { get; set; }
+        public string AuthenticationId { get; set; }
+
 
         public override string ToString()
         {
-            return $"{Email}: {Convert.ToBase64String(Password)} - {Convert.ToBase64String(Salt)}";
+            return $"{Email}: {AuthenticationId}";
         }
     }
 }

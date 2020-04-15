@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Observer } from 'rxjs';
 import { User } from '../model/user';
 import { map } from 'rxjs/internal/operators/map';
 import { shareReplay } from 'rxjs/internal/operators/shareReplay';
@@ -30,7 +30,14 @@ const AUTH_CONFIG ={
 })
 export class AuthService {
   
-  constructor(private http: HttpClient, private router: Router) {  }
+  private subject = new BehaviorSubject<User>(undefined);
+  user$: Observable<User> = this.subject.asObservable().pipe(filter(user => !!undefined));
+
+  constructor(private http: HttpClient, private router: Router) { 
+    if(this.isLoggedIn()){
+      this.userInfo();
+    }
+  }
 
   retrieveAuthInfoFromUrl() {
     this.auth0.parseHash((err, authResult) =>{
@@ -42,8 +49,23 @@ export class AuthService {
       }else if(authResult && authResult.idToken){
         window.location.hash = "";
         this.setSession(authResult);
+
+        this.userInfo();
       }      
     });
+  }
+
+  userInfo() {
+    const url = Config.API_BASE_URL + 'userinfo';
+    this.http.put<User>(url, null)
+    .pipe(shareReplay())
+    //.pipe(do( user => this.subject.next(user)))
+    .subscribe(user => 
+      {
+        console.log(user);
+        this.subject.next(user);
+      }
+      );
   }
 
   setSession(authResult: any) {
@@ -61,19 +83,17 @@ export class AuthService {
     clientID: AUTH_CONFIG.clientID,
     domain: AUTH_CONFIG.domain,
     responseType: 'token id_token',
-    redirectUri: 'https://localhost:4200/lessons'
+    redirectUri: 'https://localhost:4200/lessons',
+    //scope: "openid email"
   });
 
-  private subject = new BehaviorSubject<User>(ANONYMUS_USER);
-
-  user$: Observable<User> = this.subject.asObservable().pipe(filter(user => !!user));
 
   login(){
-    this.auth0.authorize();
+    this.auth0.authorize({initialScreen:'login'});
   }
 
   signUp(){
-    
+    this.auth0.authorize({initialScreen:'signUp',loginAfterSignUp:false});
   }
 
   logOut(){

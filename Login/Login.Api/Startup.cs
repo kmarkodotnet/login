@@ -61,6 +61,7 @@ namespace Login.Api
                         .WithOrigins("http://localhost:4200/lessons", "https://localhost:4200", "http://localhost:4200", "http://localhost:4200/signup")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
+                        //.WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .AllowCredentials()
                         .Build());
             });

@@ -15,11 +15,9 @@ namespace Login.Logic
             _dc = new DataContext();
         }
 
-        public User CreateUser(string email, string password)
+        public User CreateUser(string email, string authenticationId)
         {
-            var salt = Password.CreateSalt();
-            var psw = Password.HashPassword(password, salt);
-            return _dc.Users.Add(new Model.User() {Email = email, Password = psw, Salt = salt });
+            return _dc.Users.Add(new Model.User() {Email = email, AuthenticationId = authenticationId });
         }
 
         public User GetUser(string email)
@@ -31,13 +29,5 @@ namespace Login.Logic
         {
             return _dc.Users.List().FirstOrDefault(u => u.Id == id);
         }
-
-        public bool ValidatePassword(string email, string password)
-        {
-            var user = _dc.Users.GetUserByEmail(email);
-            return Password.VerifyHash(password, user.Salt, user.Password);
-        }
-
-
     }
 }
