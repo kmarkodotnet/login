@@ -14,30 +14,22 @@ namespace Login.Api.Controllers
     [ApiController]
     public class LessonsController : LoginBaseController
     {
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public string Get()
         {
-            var sessionId = Request.Cookies["SESSIONID"];
+            var token = Request.Headers["Authorization"];
 
-            //itt elérhető a userId ami a jwt tokenből jön
             var userId = this.User.Identity.Name;
 
-            if (string.IsNullOrWhiteSpace(sessionId))
+            var dc = new DataContext();
+            var lessons = dc.Lessons.List();
+            var options = new JsonSerializerOptions
             {
-                Response.StatusCode = 203;
-                return null; }
-            else
-            {
-                var dc = new DataContext();
-                var lessons = dc.Lessons.List();
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    WriteIndented = true
-                };
-                return JsonSerializer.Serialize(lessons, options);
-            }
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true
+            };
+            return JsonSerializer.Serialize(lessons, options);
         }
     }
 }

@@ -13,7 +13,8 @@ export class LessonsService {
     }
 
     loadAllLessons():Observable<Lesson[]> {
-        return this.http.get<Lesson[]>(Config.API_BASE_URL + 'lessons');
+        const url = Config.API_BASE_URL + 'lessons';
+        return this.http.get<Lesson[]>(url);
     }
 
     findLessonById(id:number) {

@@ -10,6 +10,7 @@ import {LessonsService} from "./services/lessons.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import { AuthService } from './services/auth.service';
 import { Lessons2Component } from './lessons2/lessons2.component';
+import { TokenInterceptor } from './services/token.interceptor';
 
 //import { TokenInterceptor } from './services/token.interceptor';
 
@@ -32,11 +33,11 @@ import { Lessons2Component } from './lessons2/lessons2.component';
   providers: [
     LessonsService,
     AuthService,
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })
