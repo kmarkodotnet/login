@@ -16,10 +16,14 @@
         <li *ngIf="isLoggedOut()" (click)="signUp()">
             <a>Sign Up</a>
         </li>
-        <li *ngIf="isLoggedOut()" (click)="login()">
-            <a>Login</a>
+        <!-- <li *ngIf="isLoggedOut()" > -->
+        <li>
+            <button class="loginBtn loginBtn--facebook" (click)="login()">
+                Login with Facebook
+              </button>
         </li>
-        <li *ngIf="isLoggedIn()" (click)="logout()">
+        <!-- *ngIf="isLoggedIn()"  -->
+        <li (click)="logout()">
             <a>Logout</a>
         </li>
     </ul>
