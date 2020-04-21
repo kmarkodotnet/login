@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "security", "security", "{FE
 		security\public.key = security\public.key
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Login.OIDC", "Login.OIDC\Login.OIDC.csproj", "{B4354D5E-FBCA-4D47-AFA2-64E0144B5413}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C3BBAD14-D87B-4567-A9F4-56BCF6D5171E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3BBAD14-D87B-4567-A9F4-56BCF6D5171E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3BBAD14-D87B-4567-A9F4-56BCF6D5171E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4354D5E-FBCA-4D47-AFA2-64E0144B5413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4354D5E-FBCA-4D47-AFA2-64E0144B5413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4354D5E-FBCA-4D47-AFA2-64E0144B5413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4354D5E-FBCA-4D47-AFA2-64E0144B5413}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
