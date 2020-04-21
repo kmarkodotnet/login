@@ -39,21 +39,6 @@ export class AuthService {
     }
   }
 
-  retrieveAuthInfoFromUrl() {
-    this.auth0.parseHash((err, authResult) =>{
-
-      if(err){
-        console.log(err);
-        return;
-
-      }else if(authResult && authResult.idToken){
-        window.location.hash = "";
-        this.setSession(authResult);
-
-        this.userInfo();
-      }      
-    });
-  }
 
   userInfo() {
     const url = Config.API_BASE_URL + 'userinfo';
@@ -68,9 +53,10 @@ export class AuthService {
       );
   }
 
-  setSession(authResult: any) {
-    const expiresAt = m().add(authResult.expiresIn,'second');
-    localStorage.setItem("id_token",authResult.idToken);
+  setSession(result: any) {
+    const expiresAt = m().add(result.authResponse.expiresIn,'second');
+    localStorage.setItem("id_token",result.authResponse.accessToken);
+    localStorage.setItem("fb_user_id",result.authResponse.userID);
     localStorage.setItem("expiresAt",JSON.stringify(expiresAt.valueOf()));
   }
   
@@ -79,26 +65,42 @@ export class AuthService {
     return m(expires);
   }
 
-  auth0 = new auth0.WebAuth({
-    clientID: AUTH_CONFIG.clientID,
-    domain: AUTH_CONFIG.domain,
-    responseType: 'token id_token',
-    redirectUri: 'https://localhost:4200/lessons',
-    //scope: "openid email"
-  });
-
-
+  accessToken = "";
   login(){
-    this.auth0.authorize({initialScreen:'login'});
+    window['FB'].login((response) => {
+      console.log('login response',response);
+      if (response.authResponse) {
+        this.accessToken = response.authResponse.accessToken;
+        this.setSession(response);
+        window['FB'].api('/me', {
+          fields: 'last_name, first_name, email'
+        }, (userInfo) => {
+
+          console.log("user information");
+          console.log(userInfo);
+        });
+         
+      } else {
+        console.log('User login failed');
+      }
+  }, {scope: 'email'});
   }
 
   signUp(){
-    this.auth0.authorize({initialScreen:'signUp',loginAfterSignUp:false});
+    //this.auth0.authorize({initialScreen:'signUp',loginAfterSignUp:false});
   }
 
   logOut(){
+    window['FB'].getLoginStatus(function(response) {
+      window['FB'].logout(function(response){
+        console.log("Logged Out!");
+      });
+    });
+
     localStorage.removeItem("id_token");
     localStorage.removeItem("expiresAt");
+    localStorage.removeItem("fb_user_id");
+    
     this.router.navigate(["/lessons"]);
   }
   

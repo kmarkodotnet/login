@@ -15,64 +15,30 @@ export class AppComponent {
 
   constructor(private auth:AuthService) { }
 
-  ngOnInit(){
-    
+  ngOnInit(){    
     this.fbLibrary();
-    this.auth.retrieveAuthInfoFromUrl();
+    //this.auth.retrieveAuthInfoFromUrl();
   }
 
   signUp() {
-    this.auth.signUp();
+    //this.auth.signUp();
   }
 
-  // login() {
-  //   this.auth.login();
-  // }
-
-  // logout() {
-  //     this.auth.logOut();
-  // }
+  login() {
+    this.auth.login();
+  }
 
   logout() {
-    window['FB'].getLoginStatus(function(response) {
-      window['FB'].logout(function(response){
-        console.log("Logged Out!");
-      });
-    });
-    // window['FB'].logout(function(response) {
-    //   console.log("Logout response");
-    //   console.log(response);
-    // });
+    this.auth.logOut();
   }
-  
 
   isLoggedIn():boolean{
     return this.auth.isLoggedIn();
   }
+
   isLoggedOut():boolean{
     return this.auth.isLoggedOut();
   }
-
-  accessToken = "";
-  login() {
- 
-    window['FB'].login((response) => {
-        console.log('login response',response);
-        if (response.authResponse) {
-          this.accessToken = response.authResponse.accessToken;
-          window['FB'].api('/me', {
-            fields: 'last_name, first_name, email'
-          }, (userInfo) => {
- 
-            console.log("user information");
-            console.log(userInfo);
-          });
-           
-        } else {
-          console.log('User login failed');
-        }
-    }, {scope: 'email'});
-}
 
   fbLibrary(){
     (window as any).fbAsyncInit = function() {

@@ -1,7 +1,11 @@
 using System.Text;
 using System.Threading.Tasks;
 using Login.DataAccess;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,31 +31,63 @@ namespace Login.Api
             });
 
             IdentityModelEventSource.ShowPII = true;
+
             services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
+            }
+                 )
+                .AddFacebook(options =>
+            {
+                options.AppId = "732651050902124";
+                options.AppSecret = "a54281a0f98102b975c3838494562d46";
+                options.Events = new OAuthEvents()
                 {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
-                {
-                    options.Authority = "https://kmarkologin.eu.auth0.com/";
-                    options.Audience = "B0hvw0bwf4P0eWYBDjX87UZNekk6JamX";
-                    
-                    options.Events = new JwtBearerEvents
-                    {
-                        //OnAuthenticationFailed = AuthenticationFailed,
-                        //OnForbidden = Forbidden,
-                        //OnTokenValidated = TokenValidated,
-                        //OnMessageReceived = MessageRecieved,
-                        //OnChallenge = Challange
-                    };
+                    OnAccessDenied = OnAccessDenied,
+                    OnCreatingTicket = OnCreatingTicket,
+                    OnRedirectToAuthorizationEndpoint = OnRedirectToAuthorizationEndpoint,
+                    OnRemoteFailure = OnRemoteFailure,
+                    OnTicketReceived = OnTicketReceived
+                };
+            });
+            //services.AddAuthentication(options =>
+            //    {
+            //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    })
+            //    .AddJwtBearer(options =>
+            //    {
+            //        //options.Authority = "https://facebook.com/.well-known/openid-configuration";
+            //        //options.Audience = "a54281a0f98102b975c3838494562d46";
+            //        //options.ClaimsIssuer = "6fb9221f33b204205f314df71ecefe1a";
 
-                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                    {
-                        NameClaimType = "name"
-                    };
 
-                });
+            //        options.Events = new JwtBearerEvents
+            //        {
+            //            OnAuthenticationFailed = AuthenticationFailed,
+            //            OnForbidden = Forbidden,
+            //            OnTokenValidated = TokenValidated,
+            //            OnMessageReceived = MessageRecieved,
+            //            OnChallenge = Challange
+            //        };
+            //        options.IncludeErrorDetails = true;
+            //        //options.ClaimsIssuer = "https://facebook.com";
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+            //                "6fb9221f33b204205f314df71ecefe1a"
+            //                ))
+            //            //ValidateIssuer = true,
+            //            //ValidIssuer = "https://facebook.com",
+
+            //            //ValidateAudience = true,
+            //            //ValidAudience = "https://yourapplication.example.com",
+
+            //            //ValidateLifetime = true,
+            //        };
+
+            //    });
 
             services.AddCors(options =>
             {
@@ -70,6 +106,32 @@ namespace Login.Api
             //{
             //    options.HeaderName = "XSRF-TOKEN";
             //});
+        }
+
+        private Task OnTicketReceived(TicketReceivedContext arg)
+        {
+            return Task.FromResult(arg.Response);
+        }
+
+        private Task OnRemoteFailure(RemoteFailureContext arg)
+        {
+
+            return Task.FromResult(arg.Response);
+        }
+
+        private Task OnRedirectToAuthorizationEndpoint(RedirectContext<OAuthOptions> arg)
+        {
+            return Task.FromResult(arg.Response);
+        }
+
+        private Task OnCreatingTicket(OAuthCreatingTicketContext arg)
+        {
+            return Task.FromResult(arg.Response);
+        }
+
+        private Task OnAccessDenied(AccessDeniedContext arg)
+        {
+            return Task.FromResult(arg.Response);
         }
 
 

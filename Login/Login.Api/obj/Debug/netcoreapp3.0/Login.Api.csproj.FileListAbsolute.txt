@@ -9,6 +9,7 @@ C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Login.Api.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Login.Api.pdb
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Konscious.Security.Cryptography.Argon2.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Konscious.Security.Cryptography.Blake2.dll
+C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -22,6 +23,11 @@ C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkC
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.Identity.Client.dll
+C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Logging.dll
+C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.dll
+C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
@@ -38,6 +44,7 @@ C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\System.Composition.Hosting
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\System.Composition.Runtime.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\System.Composition.TypedParts.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\System.Configuration.ConfigurationManager.dll
+C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\System.IdentityModel.Tokens.Jwt.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\System.Runtime.Caching.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\System.Security.Cryptography.ProtectedData.dll
 C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\cs\Microsoft.CodeAnalysis.resources.dll
@@ -109,17 +116,10 @@ C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Login.Model.pdb
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.csprojAssemblyReference.cache
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\staticwebassets\Login.Api.StaticWebAssets.Manifest.cache
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\staticwebassets\Login.Api.StaticWebAssets.xml
+C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.AssemblyInfoInputs.cache
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.AssemblyInfo.cs
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.RazorTargetAssemblyInfo.cache
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.csproj.CopyComplete
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.dll
 C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.pdb
-C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.JsonWebTokens.dll
-C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Logging.dll
-C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
-C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\System.IdentityModel.Tokens.Jwt.dll
-C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.dll
-C:\temp\login\Login\Login.Api\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-C:\temp\login\Login\Login.Api\obj\Debug\netcoreapp3.0\Login.Api.MvcApplicationPartsAssemblyInfo.cache
