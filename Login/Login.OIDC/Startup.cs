@@ -21,7 +21,9 @@ namespace Login.OIDC
                 .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
                 .AddTestUsers(InMemoryConfig.GetUsers())
                 .AddInMemoryClients(InMemoryConfig.GetClients())
-                .AddDeveloperSigningCredential(); 
+                .AddDeveloperSigningCredential();
+
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,8 +34,13 @@ namespace Login.OIDC
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+            app.UseRouting();
+
             app.UseIdentityServer();
-            //app.UseRouting();
+
+            app.UseAuthorization();
+            app.UseEndpoints(eps => { eps.MapDefaultControllerRoute(); });
 
             //app.UseEndpoints(endpoints =>
             //{
