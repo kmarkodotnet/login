@@ -1,5 +1,7 @@
+using System;
 using System.Text;
 using System.Threading.Tasks;
+using Login.Api.Middlewares;
 using Login.DataAccess;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -30,64 +32,7 @@ namespace Login.Api
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            IdentityModelEventSource.ShowPII = true;
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
-            }
-                 )
-                .AddFacebook(options =>
-            {
-                options.AppId = "732651050902124";
-                options.AppSecret = "a54281a0f98102b975c3838494562d46";
-                options.Events = new OAuthEvents()
-                {
-                    OnAccessDenied = OnAccessDenied,
-                    OnCreatingTicket = OnCreatingTicket,
-                    OnRedirectToAuthorizationEndpoint = OnRedirectToAuthorizationEndpoint,
-                    OnRemoteFailure = OnRemoteFailure,
-                    OnTicketReceived = OnTicketReceived
-                };
-            });
-            //services.AddAuthentication(options =>
-            //    {
-            //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    })
-            //    .AddJwtBearer(options =>
-            //    {
-            //        //options.Authority = "https://facebook.com/.well-known/openid-configuration";
-            //        //options.Audience = "a54281a0f98102b975c3838494562d46";
-            //        //options.ClaimsIssuer = "6fb9221f33b204205f314df71ecefe1a";
-
-
-            //        options.Events = new JwtBearerEvents
-            //        {
-            //            OnAuthenticationFailed = AuthenticationFailed,
-            //            OnForbidden = Forbidden,
-            //            OnTokenValidated = TokenValidated,
-            //            OnMessageReceived = MessageRecieved,
-            //            OnChallenge = Challange
-            //        };
-            //        options.IncludeErrorDetails = true;
-            //        //options.ClaimsIssuer = "https://facebook.com";
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-            //                "6fb9221f33b204205f314df71ecefe1a"
-            //                ))
-            //            //ValidateIssuer = true,
-            //            //ValidIssuer = "https://facebook.com",
-
-            //            //ValidateAudience = true,
-            //            //ValidAudience = "https://yourapplication.example.com",
-
-            //            //ValidateLifetime = true,
-            //        };
-
-            //    });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 
             services.AddCors(options =>
             {
@@ -108,32 +53,6 @@ namespace Login.Api
             //});
         }
 
-        private Task OnTicketReceived(TicketReceivedContext arg)
-        {
-            return Task.FromResult(arg.Response);
-        }
-
-        private Task OnRemoteFailure(RemoteFailureContext arg)
-        {
-
-            return Task.FromResult(arg.Response);
-        }
-
-        private Task OnRedirectToAuthorizationEndpoint(RedirectContext<OAuthOptions> arg)
-        {
-            return Task.FromResult(arg.Response);
-        }
-
-        private Task OnCreatingTicket(OAuthCreatingTicketContext arg)
-        {
-            return Task.FromResult(arg.Response);
-        }
-
-        private Task OnAccessDenied(AccessDeniedContext arg)
-        {
-            return Task.FromResult(arg.Response);
-        }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env
@@ -145,6 +64,11 @@ namespace Login.Api
                 app.UseDeveloperExceptionPage();
             }
             
+            app.UseWhen(c =>
+                    c.Request.Path.StartsWithSegments("/api/lessons"), appbuilder =>
+                    app.UseFacebookTokenValidatorMiddleware()
+            );
+
             ////https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-3.1
             //app.UseRetrieveUserIdFromRequest();
 
@@ -163,16 +87,11 @@ namespace Login.Api
             app.UseRouting();
 
             app.UseCors("CorsPolicy");
-            
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-            //app.UseAuthentication();
-
 
             DataContext.Init();
         }

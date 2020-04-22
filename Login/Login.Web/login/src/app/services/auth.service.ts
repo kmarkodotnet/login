@@ -75,7 +75,7 @@ export class AuthService {
         window['FB'].api('/me', {
           fields: 'last_name, first_name, email'
         }, (userInfo) => {
-
+          this.setEmail(userInfo.email);
           console.log("user information");
           console.log(userInfo);
         });
@@ -83,7 +83,11 @@ export class AuthService {
       } else {
         console.log('User login failed');
       }
-  }, {scope: 'email'});
+    }, {scope: 'email'});
+  }
+
+  setEmail(email: any) {
+    localStorage.setItem("email",email);
   }
 
   signUp(){
@@ -100,6 +104,8 @@ export class AuthService {
     localStorage.removeItem("id_token");
     localStorage.removeItem("expiresAt");
     localStorage.removeItem("fb_user_id");
+
+    localStorage.removeItem("email");
     
     this.router.navigate(["/lessons"]);
   }

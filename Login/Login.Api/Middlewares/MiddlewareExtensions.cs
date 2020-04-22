@@ -9,6 +9,12 @@ namespace Login.Api.Middlewares
 {
     public static class MiddlewareExtensions
     {
+        public static IApplicationBuilder UseFacebookTokenValidatorMiddleware(
+            this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<FacebookTokenValidatorMiddleware>();
+        }
+
         public static IApplicationBuilder UseRetrieveUserIdFromRequest(
             this IApplicationBuilder builder)
         {

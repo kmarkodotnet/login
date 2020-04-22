@@ -19,13 +19,10 @@ namespace Login.Api.Controllers
         [HttpPut]
         public string Get()
         {
-            var token = Request.Headers["Authorization"];
+            var accessToken = Request.Headers["Authorization"];
+            var email = Request.Headers["Email"];
 
-            var identity = this.User.Identity;
-            var cs = (identity as ClaimsIdentity).Claims;
-
-            var email = cs.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value;
-            var id = cs.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            var id = FacebookTokenHandler.GetUserIdByAccessToken(accessToken);
 
             var us = new UserService();
             var user = us.GetUser(email);

@@ -14,7 +14,6 @@ namespace Login.Api.Controllers
     [ApiController]
     public class LessonsController : LoginBaseController
     {
-        [Authorize]
         [HttpGet]
         public string Get()
         {
