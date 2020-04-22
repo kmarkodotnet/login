@@ -15,7 +15,6 @@ namespace Login.Api.Controllers
     [ApiController]
     public class UserInfoController : ControllerBase
     {
-        [Authorize]
         [HttpPut]
         public string Get()
         {

@@ -64,10 +64,6 @@ namespace Login.Api
                 app.UseDeveloperExceptionPage();
             }
             
-            app.UseWhen(c =>
-                    c.Request.Path.StartsWithSegments("/api/lessons"), appbuilder =>
-                    app.UseFacebookTokenValidatorMiddleware()
-            );
 
             ////https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-3.1
             //app.UseRetrieveUserIdFromRequest();
@@ -87,6 +83,12 @@ namespace Login.Api
             app.UseRouting();
 
             app.UseCors("CorsPolicy");
+
+
+            app.UseWhen(c =>
+                    c.Request.Path.StartsWithSegments("/api/lessons"), appbuilder =>
+                    app.UseFacebookTokenValidatorMiddleware()
+            );
 
             app.UseEndpoints(endpoints =>
             {
