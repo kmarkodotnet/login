@@ -8,7 +8,7 @@ import {RouterModule} from "@angular/router";
 import {routesConfig} from "./routes.config";
 import {LessonsService} from "./services/lessons.service";
 import {ReactiveFormsModule} from "@angular/forms";
-import { AuthService } from './services/auth.service';
+import { FacebookAuthService } from './services/facebook.auth.service';
 import { Lessons2Component } from './lessons2/lessons2.component';
 import { TokenInterceptor } from './services/token.interceptor';
 
@@ -27,7 +27,7 @@ import { TokenInterceptor } from './services/token.interceptor';
   ],
   providers: [
     LessonsService,
-    AuthService,
+    FacebookAuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -2,17 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, Observer } from 'rxjs';
 import { User } from '../model/user';
-import { map } from 'rxjs/internal/operators/map';
 import { shareReplay } from 'rxjs/internal/operators/shareReplay';
-import { tap } from 'rxjs/internal/operators/tap';
 import { filter } from 'rxjs/internal/operators/filter';
 import { Config } from '../config';
-import createAuth0Client from '@auth0/auth0-spa-js';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
-//import { from, of, combineLatest, throwError } from 'rxjs';
-import { catchError, concatMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import * as auth0 from "auth0-js";
 import * as m from "moment";
 
 export const ANONYMUS_USER : User = {
@@ -20,15 +13,10 @@ export const ANONYMUS_USER : User = {
   email:''
 }
 
-const AUTH_CONFIG ={
-  clientID: "B0hvw0bwf4P0eWYBDjX87UZNekk6JamX",
-  domain:"kmarkologin.eu.auth0.com"
-}
-
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class FacebookAuthService {
   
   private subject = new BehaviorSubject<User>(undefined);
   user$: Observable<User> = this.subject.asObservable().pipe(filter(user => !!undefined));
@@ -38,7 +26,6 @@ export class AuthService {
       this.userInfo();
     }
   }
-
 
   userInfo() {
     const url = Config.API_BASE_URL + 'userinfo';
@@ -117,4 +104,24 @@ export class AuthService {
   isLoggedOut() {
       return !this.isLoggedIn();
   }
+
+  fbLibrary(){
+    (window as any).fbAsyncInit = function() {
+      window['FB'].init({
+        appId      : '732651050902124',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v6.0'
+      });        
+      window['FB'].AppEvents.logPageView();           
+    };  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  }
+
 }

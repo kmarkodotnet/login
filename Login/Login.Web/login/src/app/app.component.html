@@ -24,6 +24,12 @@
                 Login with Facebook
               </button>
         </li>
+        <li *ngIf="isLoggedOut()" >
+            <button class="loginBtn loginBtn--google" #loginRef>
+                Login with Google
+              </button>
+        </li>
+
         <li *ngIf="isLoggedIn()" (click)="logout()">
             <a>Logout</a>
         </li>
