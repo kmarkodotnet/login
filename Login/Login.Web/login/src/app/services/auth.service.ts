@@ -65,19 +65,18 @@ export class AuthService {
     return m(expires);
   }
 
-  accessToken = "";
   login(){
+    this.faceBookLogin();
+  }
+  faceBookLogin() {
     window['FB'].login((response) => {
-      console.log('login response',response);
       if (response.authResponse) {
-        this.accessToken = response.authResponse.accessToken;
         this.setSession(response);
         window['FB'].api('/me', {
           fields: 'last_name, first_name, email'
         }, (userInfo) => {
           this.setEmail(userInfo.email);
-          console.log("user information");
-          console.log(userInfo);
+          this.userInfo();
         });
          
       } else {
@@ -91,7 +90,7 @@ export class AuthService {
   }
 
   signUp(){
-    //this.auth0.authorize({initialScreen:'signUp',loginAfterSignUp:false});
+    this.faceBookLogin();
   }
 
   logOut(){

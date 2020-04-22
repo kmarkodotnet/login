@@ -14,7 +14,9 @@
             <a routerLink="/lessons2">Lessons2</a>
         </li>
         <li *ngIf="isLoggedOut()" (click)="signUp()">
-            <a>Sign Up</a>
+            <button class="loginBtn loginBtn--facebook" (click)="signUp()">
+                Sign Up with Facebook
+              </button>
         </li>
         
         <li *ngIf="isLoggedOut()" >

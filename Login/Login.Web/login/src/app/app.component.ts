@@ -21,7 +21,7 @@ export class AppComponent {
   }
 
   signUp() {
-    //this.auth.signUp();
+    this.auth.signUp();
   }
 
   login() {

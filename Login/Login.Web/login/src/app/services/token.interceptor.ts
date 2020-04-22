@@ -10,10 +10,12 @@ export class TokenInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const idToken = localStorage.getItem("id_token");
+        const email = localStorage.getItem("email");
         if(idToken){
             const cloned = req.clone({
                 headers: req.headers
                     .set("Authorization", idToken)
+                    .set("Email", email)
                     .set("Content-Type", "application/json"),
                 withCredentials: true
             });
