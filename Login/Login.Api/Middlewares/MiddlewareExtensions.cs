@@ -14,6 +14,11 @@ namespace Login.Api.Middlewares
         {
             return builder.UseMiddleware<FacebookTokenValidatorMiddleware>();
         }
+        public static IApplicationBuilder UseGoogleTokenValidatorMiddleware(
+            this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<GoogleTokenValidatorMiddleware>();
+        }
 
         public static IApplicationBuilder UseRetrieveUserIdFromRequest(
             this IApplicationBuilder builder)

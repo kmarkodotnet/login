@@ -52,7 +52,7 @@ export class AppComponent {
         let profile = googleUser.getBasicProfile();
         let authResp = googleUser.getAuthResponse();
         let token =  authResp.id_token;
-        let expires = authResp.expires_it;
+        let expires = authResp.expires_in;
         
         let id = profile.getId();
         let email = profile.getEmail();
