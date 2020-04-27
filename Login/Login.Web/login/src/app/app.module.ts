@@ -11,19 +11,25 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { FacebookAuthService } from './services/facebook.auth.service';
 import { Lessons2Component } from './lessons2/lessons2.component';
 import { TokenInterceptor } from './services/token.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LessonsComponent,
     Lessons2Component,
+    LoginComponent,
     
   ],
   imports: [
-    HttpClientModule,
+    HttpClientModule,    
+    MatDialogModule,
     BrowserModule,
       RouterModule.forRoot(routesConfig),
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      BrowserAnimationsModule
   ],
   providers: [
     LessonsService,

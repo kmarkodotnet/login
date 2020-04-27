@@ -20,15 +20,10 @@
         </li>
         
         <li *ngIf="isLoggedOut()" >
-            <button class="loginBtn loginBtn--facebook" (click)="login()">
-                Login with Facebook
-              </button>
+            <a  (click)="login()">Login</a>
         </li>
-        <li *ngIf="isLoggedOut()" >
-            <button class="loginBtn loginBtn--google" #loginRef>
-                Login with Google
-              </button>
-        </li>
+
+
 
         <li *ngIf="isLoggedIn()" (click)="logout()">
             <a>Logout</a>
