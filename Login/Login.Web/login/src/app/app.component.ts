@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { GoogleAuthService } from './services/google.auth.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
+import { SessionService } from './services/session.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent {
 
   dialogRef:MatDialogRef<LoginComponent>;
  
-  constructor(public dialog: MatDialog,private ngZone: NgZone) { }
+  constructor(public dialog: MatDialog,private ngZone: NgZone, private sessionService:SessionService) { }
  
   ngOnInit(){
   }
@@ -40,19 +41,20 @@ export class AppComponent {
   closeDialog(){
     this.ngZone.run(() => {
       this.dialogRef.close();  
+      this.dialogRef.componentInstance.onClose.unsubscribe();
     });    
   }
 
   logout() {
-    //this.auth.logOut();
+    this.sessionService.logOut();
   }
 
   isLoggedIn():boolean{
-    return false;//this.auth.isLoggedIn();
+    return this.sessionService.isLoggedIn();
   }
 
   isLoggedOut():boolean{
-    return true;//this.auth.isLoggedOut();
+    return this.sessionService.isLoggedOut();
   }
 
 

@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef, Inject, EventEmitter } from '
 import { GoogleAuthService } from '../services/google.auth.service';
 
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { SessionService } from '../services/session.service';
+import { SessionInfo } from '../model/session-info';
+import { LoginFramework } from '../model/login-framework';
 
 @Component({
   selector: 'app-login',
@@ -15,26 +18,55 @@ export class LoginComponent implements OnInit {
   
   @ViewChild('loginRef') loginElement: ElementRef;
 
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private auth: GoogleAuthService) { }
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private auth: GoogleAuthService, private sessionService:SessionService) { }
 
   ngOnInit(): void {    
     this.googleSDK();
+    this.facebookSDK();
   }
 
+  facebookLogin() {
+    window['FB'].login((response) => {
+      if (response.authResponse) {        
+        window['FB'].api('/me', {
+          fields: 'last_name, first_name, email'
+        }, (userInfo) => {
 
-  login(){    
+          this.sessionService.login(new SessionInfo(
+            response.authResponse.userID,
+            "", 
+            response.authResponse.accessToken,
+            userInfo.email,
+            userInfo.first_name + " " + userInfo.last_name,
+            response.authResponse.expiresIn,
+            LoginFramework.facebook
+          ));
+
+          this.onClose.emit();
+        });
+         
+      } else {
+        console.log('User login failed');
+      }
+    }, {scope: 'email'});
   }
 
   prepareLoginButton() { 
     this.auth2.attachClickHandler(this.loginElement.nativeElement, {},
       (googleUser) => { 
+
         let profile = googleUser.getBasicProfile();
         let authResp = googleUser.getAuthResponse();
-        let token =  authResp.id_token;
-        let expires = authResp.expires_in;        
-        let id = profile.getId();
-        let email = profile.getEmail();
-        this.auth.setSession(token,id,email,expires); 
+
+        this.sessionService.login(new SessionInfo(
+          profile.getId(),
+          authResp.id_token, 
+          authResp.access_token,
+          profile.getEmail(),
+          profile.getName(),
+          authResp.expires_in,
+          LoginFramework.google
+        ));       
 
         this.onClose.emit();
       }, (error) => {
@@ -62,4 +94,22 @@ export class LoginComponent implements OnInit {
     }(document, 'script', 'google-jssdk')); 
   }
 
+  facebookSDK(){
+    (window as any).fbAsyncInit = function() {
+      window['FB'].init({
+        appId      : '732651050902124',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v6.0'
+      });        
+      window['FB'].AppEvents.logPageView();           
+    };  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  }
 }

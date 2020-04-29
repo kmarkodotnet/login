@@ -87,7 +87,7 @@ namespace Login.Api
 
             app.UseWhen(c =>
                     c.Request.Path.StartsWithSegments("/api/lessons"), appbuilder =>
-                    app.UseGoogleTokenValidatorMiddleware()
+                    app.UseLoginTokenValidatorMiddleware()
             );
 
             app.UseEndpoints(endpoints =>
